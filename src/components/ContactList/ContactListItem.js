@@ -12,15 +12,15 @@ const ContactListItem = ({ name, number, onDeleteContact }) => (
   </li>
 );
 
-const mapStateToProps = (state, ownProps) => {
-  const item = state.contacts.items.find((item) => item.id === ownProps.id);
+const mapStateToProps = (state, { id }) => {
+  const item = state.contacts.items.find((item) => item.id === id);
   return {
     ...item,
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDeleteContact: () => dispatch(contactAction.removeContact(ownProps.id)),
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onDeleteContact: () => dispatch(contactAction.removeContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactListItem);

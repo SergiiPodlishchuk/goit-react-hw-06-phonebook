@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-// import contactAction from "../../redux/contacts/contactAction";
 import ContactListItem from "./ContactListItem";
 
 import "./ContacList.css";

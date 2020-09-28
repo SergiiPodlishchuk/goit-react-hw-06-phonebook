@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
 
-// import contactTypes from "./contactTypes";
 import contactAction from "./contactAction";
 
 const CONTACTS_DATA = [
@@ -11,68 +10,24 @@ const CONTACTS_DATA = [
   { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
 ];
 
-const onAddContact = (state = CONTACTS_DATA, action) => [
-  action.payload.contact,
-  ...state,
-];
-const onRemoveContact = (state, action) =>
-  state.filter(({ id }) => id !== action.payload);
+const onAddContact = (state, { payload }) => [payload.contact, ...state];
+const onRemoveContact = (state, { payload }) =>
+  state.filter(({ id }) => id !== payload);
 
-const itemsTestReducer = createReducer([], {
+const items = createReducer([], {
   [contactAction.addContact]: onAddContact,
   [contactAction.removeContact]: onRemoveContact,
 });
 
-// const items = (state = CONTACTS_DATA, { type, payload }) => {
-//   switch (type) {
-//     case contactTypes.ADD:
-//       return [payload.contact, ...state];
-//     case contactTypes.REMOVE:
-//       return state.filter(({ id }) => id !== payload.id);
-
-//     default:
-//       return state;
-//   }
-// };
-const items = (state = CONTACTS_DATA, { type, payload }) => {
-  switch (type) {
-    case contactAction.addContact.type:
-      return [payload.contact, ...state];
-    case contactAction.removeContact.type:
-      return state.filter(({ id }) => id !== payload);
-
-    default:
-      return state;
-  }
-};
-
-// const filter = (state = "", { type, payload }) => {
-//   switch (type) {
-//     case contactTypes.CHANGE_FILTER:
-//       return payload.filter;
-
-//     default:
-//       return state;
-//   }
-// };
 const filter = createReducer("", {
-  [contactAction.changeFilter]: (state, action) => action.payload,
+  [contactAction.changeFilter]: (state, { payload }) => payload,
 });
-
-// const filter = (state = "", { type, payload }) => {
-//   switch (type) {
-//     case contactAction.changeFilter.type:
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
 
 export default combineReducers({
-  items: itemsTestReducer,
+  items,
   filter,
 });
+
 //   componentDidMount() {
 //     const contacts = localStorage.getItem("contacts");
 //     if (contacts) {
