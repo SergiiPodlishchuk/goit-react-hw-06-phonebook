@@ -63,15 +63,11 @@ class ContactForm extends Component {
   }
 }
 
-// const mapDispatchToProps = {
-//   onAddContact: contatctsAction.addContact,
-// };
-
-const mdtp = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     onAddContact: ({ name, number }) =>
       dispatch(contatctsAction.addContact({ name, number })),
   };
 };
 
-export default connect(null, mdtp)(ContactForm);
+export default connect(null, mapDispatchToProps)(ContactForm);

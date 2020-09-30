@@ -18,13 +18,14 @@ const ContactList = ({ contacts }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, prop) => {
   const { items, filter } = state.contacts;
   const visibleContacts = items.filter(
     ({ name, number }) =>
       name.toLowerCase().includes(filter.toLowerCase()) ||
       number.toLowerCase().includes(filter.toLowerCase())
   );
+
   return { contacts: visibleContacts };
 };
 
