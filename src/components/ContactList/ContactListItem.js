@@ -14,6 +14,7 @@ const ContactListItem = ({ name, number, onDeleteContact }) => (
 
 const mapStateToProps = (state, { id }) => {
   const item = state.contacts.items.find((item) => item.id === id);
+  // console.log(item);
   return {
     ...item,
   };

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import contatctsAction from "../../redux/contacts/contactAction";
+import Alert from "../Alert/Alert";
+
 import style from "./ContactForm.module.css";
 
 const INITIAL_CONTACT_STATE = {
@@ -34,34 +36,47 @@ class ContactForm extends Component {
 
   render() {
     const { name, number } = this.state;
+    const { itemsArray } = this.props;
+
+    const filtered = itemsArray
+      .map(({ name }) => name.toLowerCase())
+      .includes(name.toLowerCase());
 
     return (
-      <form onSubmit={this.handleSubmit} className={style.Contact_form}>
-        <label>
-          Name
-          <input
-            className={style.inputName}
-            type="text"
-            value={name}
-            onChange={this.inputName}
-          />
-        </label>
-        <label>
-          Number
-          <input
-            placeholder="XXX-XX-XX"
-            type="tel"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
-            value={number}
-            onChange={this.inputNumber}
-          />
-        </label>
+      <>
+        {filtered && <Alert />}
+        <form onSubmit={this.handleSubmit} className={style.Contact_form}>
+          <label>
+            Name
+            <input
+              className={style.inputName}
+              type="text"
+              value={name}
+              onChange={this.inputName}
+            />
+          </label>
+          <label>
+            Number
+            <input
+              placeholder="XXX-XX-XX"
+              type="tel"
+              pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
+              value={number}
+              onChange={this.inputNumber}
+            />
+          </label>
 
-        <button type="submit">ADD CONTACT</button>
-      </form>
+          <button type="submit">ADD CONTACT</button>
+        </form>
+      </>
     );
   }
 }
+
+const mapStateToProprs = (state) => {
+  const { items } = state.contacts;
+  return { itemsArray: items };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -70,4 +85,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProprs, mapDispatchToProps)(ContactForm);

@@ -4,7 +4,6 @@ import { CSSTransition } from "react-transition-group";
 import ContactForm from "./ContactForm/ContactForm";
 import ContactList from "./ContactList/ContactList";
 import Filter from "./Filter/Filter";
-import Alert from "./Alert/Alert";
 
 import "./App.css";
 
@@ -20,8 +19,6 @@ export default function App() {
       >
         <h1 className="title">Phonebook</h1>
       </CSSTransition>
-
-      <Alert />
 
       <CSSTransition
         in={true}
