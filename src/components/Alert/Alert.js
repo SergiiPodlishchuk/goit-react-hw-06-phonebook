@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import "./alert.css";
 
-const Alert = () => (
+const Alert = ({ text }) => (
   <CSSTransition
     in={true}
     appear={true}
@@ -12,7 +12,7 @@ const Alert = () => (
     classNames="anim"
     unmountOnExit
   >
-    <div className="alert">Contact already exist</div>
+    <div className="alert">{text}</div>
   </CSSTransition>
 );
 

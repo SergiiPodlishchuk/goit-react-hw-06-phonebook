@@ -10,11 +10,14 @@ const defaultContacts = [
   { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
 ];
 
+const loc = JSON.parse(localStorage.getItem("contacts"));
+const defContact = loc.length > 0 ? loc : defaultContacts;
+
 const onAddContact = (state, { payload }) => [payload.contact, ...state];
 const onRemoveContact = (state, { payload }) =>
   state.filter(({ id }) => id !== payload);
 
-const items = createReducer(defaultContacts, {
+const items = createReducer(defContact, {
   [contactAction.addContact]: onAddContact,
   [contactAction.removeContact]: onRemoveContact,
 });

@@ -7,8 +7,6 @@ const store = configureStore({
   },
 });
 
-// console.log(store.getState());
-
 store.subscribe(() => {
   localStorage.setItem(
     "contacts",

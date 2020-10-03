@@ -2,40 +2,35 @@ import React from "react";
 import { connect } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import contactAction from "../../redux/contacts/contactAction";
-
 import ContactListItem from "./ContactListItem";
+import Alert from "../Alert/Alert";
 
 import "./ContacList.css";
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, listNull }) => {
   return (
-    <TransitionGroup component="ul" className="contact_list">
-      {contacts.map(({ id, name, number }) => (
-        <CSSTransition key={id} timeout={250} classNames="list">
-          <ContactListItem id={id} name={name} number={number} />
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
+    <>
+      {listNull && <Alert text="No have contact" />}
+      <TransitionGroup component="ul" className="contact_list">
+        {contacts.map(({ id, name, number }) => (
+          <CSSTransition key={id} timeout={250} classNames="list">
+            <ContactListItem id={id} name={name} number={number} />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    </>
   );
 };
 
 const mapStateToProps = (state, prop) => {
   const { items, filter } = state.contacts;
-  console.log(items);
+  const listNull = items.length === 0;
 
-  const loc = JSON.parse(localStorage.getItem("contacts"));
-  console.log(loc);
-
-  if (loc !== items) {
-    localStorage.setItem("contacts", JSON.stringify(items));
-  }
-
-  const visibleContacts = loc.filter(({ name }) =>
+  const visibleContacts = items.filter(({ name }) =>
     name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  return { contacts: visibleContacts };
+  return { contacts: visibleContacts, listNull: listNull };
 };
 
 export default connect(mapStateToProps, null)(ContactList);

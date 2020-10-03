@@ -44,7 +44,7 @@ class ContactForm extends Component {
 
     return (
       <>
-        {filtered && <Alert />}
+        {filtered && <Alert text="Contact already exist" />}
         <form onSubmit={this.handleSubmit} className={style.Contact_form}>
           <label>
             Name
